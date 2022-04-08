@@ -1,0 +1,25 @@
+version: '3'
+services:
+  flyway:
+    image: flyway/flyway:6.3.1
+    container_name: flyway
+    command: -url=jdbc:postgresql://postgres:${POSTGRES_PORT}/${POSTGRES_DB} -schemas=public -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} migrate
+    volumes:
+      - ./src/main/resources/migration/sql:/flyway/sql
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:12.2
+    restart: always
+    container_name:
+      postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      interval: 5s
+      timeout: 1s
+      retries: 2
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
