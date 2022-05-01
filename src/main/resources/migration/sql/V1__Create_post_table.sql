@@ -1,10 +1,12 @@
-CREATE TABLE article (
-    id serial NOT NULL PRIMARY KEY,
-    title varchar(100) NOT NULL,
-    text text NOT NULL
-);
+CREATE
+EXTENSION IF NOT EXISTS "uuid-ossp";
 
-INSERT INTO article (title, text)
-    VALUES ('Hello World', 'Hello! I''m hello');
-INSERT INTO article (title, text)
-    VALUES ('Hello World2', '2');
+CREATE TABLE ARTICLE
+(
+    UUID       UUID default uuid_generate_v4() PRIMARY KEY,
+    CREATED_AT TIMESTAMP    NOT NULL,
+    CHANGED_AT TIMESTAMP    NOT NULL,
+    CREATED_BY VARCHAR(100) NOT NULL,
+    TITLE      VARCHAR(100) NOT NULL,
+    TEXT       TEXT         NOT NULL
+);
