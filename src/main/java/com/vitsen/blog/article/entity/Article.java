@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "ARTICLE")
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 public class Article extends BaseEntity {
 
@@ -23,4 +23,9 @@ public class Article extends BaseEntity {
 	@Column(name = "TEXT", nullable = false)
 	@NotNull
 	private String text;
+
+	public Article(String title, String text) {
+		this.title = title;
+		this.text = text;
+	}
 }
